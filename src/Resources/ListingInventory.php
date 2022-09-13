@@ -7,16 +7,17 @@ use Etsy\Resource;
 /**
  * Listing Inventory class.
  *
- * @link https://developers.etsy.com/documentation/reference#tag/ShopListing-Inventory
+ * @link   https://developers.etsy.com/documentation/reference#tag/ShopListing-Inventory
  * @author Rhys Hall hello@rhyshall.com
  */
-class ListingInventory extends Resource {
+class ListingInventory extends Resource
+{
 
-  /**
-   * @var array
-   */
-  protected $_associations = [
-    "products" => "ListingProduct"
-  ];
+    /**
+     * @var array
+     */
+    protected $_associations = [
+        "products" => "ListingProduct"
+    ];
 
 }

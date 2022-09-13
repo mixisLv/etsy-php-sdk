@@ -7,79 +7,91 @@ use Etsy\Resource;
 /**
  * Receipt resource class.
  *
- * @link https://developers.etsy.com/documentation/reference#tag/Shop-Receipt
+ * @link   https://developers.etsy.com/documentation/reference#tag/Shop-Receipt
  * @author Rhys Hall hello@rhyshall.com
  */
-class Receipt extends Resource {
+class Receipt extends Resource
+{
 
-  /**
-   * @var array
-   */
-  protected $_associations = [
-    'shipments' => 'Shipment'
-  ];
+    /**
+     * @var array
+     */
+    protected $_associations = [
+        'shipments'    => 'Shipment',
+        'transactions' => 'Transaction',
+    ];
 
-  /**
-   * Creates a new Shipment against the receipt.
-   *
-   * @link https://developers.etsy.com/documentation/reference#operation/createReceiptShipment
-   * @param array $data
-   * @return Etsy\Resources\Shipment
-   */
-  public function createShipment(array $data) {
-    $shipment = $this->request(
-      "POST",
-      "/application/shops/{$this->shop_id}/receipts/{$this->receipt_id}/tracking",
-      "Shipment",
-      $data
-    );
-    // Add the shipment to the associated property.
-    $this->_properties->shipments[] = $shipment;
-    return $shipment;
-  }
+    /**
+     * Creates a new Shipment against the receipt.
+     *
+     * @link https://developers.etsy.com/documentation/reference#operation/createReceiptShipment
+     *
+     * @param array $data
+     *
+     * @return \Etsy\Resource|Shipment
+     */
+    public function createShipment(array $data)
+    {
+        $shipment = $this->request(
+            "POST",
+            "/application/shops/{$this->shop_id}/receipts/{$this->receipt_id}/tracking",
+            "Shipment",
+            $data
+        );
+        // Add the shipment to the associated property.
+        $this->_properties->shipments[] = $shipment;
+        return $shipment;
+    }
 
-  /**
-   * Gets all transactions for the receipt.
-   *
-   * @link https://developers.etsy.com/documentation/reference#operation/getShopReceiptTransactionsByReceipt
-   * @return Etsy\Collection[Etsy\Resources\Transaction]
-   */
-  public function getTransactions() {
-    return $this->request(
-      "GET",
-      "/application/shops/{$this->shop_id}/receipts/{$this->receipt_id}/transactions",
-      "Transaction"
-    );
-  }
+    /**
+     * Gets all transactions for the receipt.
+     *
+     * @link https://developers.etsy.com/documentation/reference#operation/getShopReceiptTransactionsByReceipt
+     *
+     * @return \Etsy\Collection[Transaction]
+     */
+    public function getTransactions()
+    {
+        return $this->request(
+            "GET",
+            "/application/shops/{$this->shop_id}/receipts/{$this->receipt_id}/transactions",
+            "Transaction"
+        );
+    }
 
-  /**
-   * Gets all payments for the receipt.
-   *
-   * @link https://developers.etsy.com/documentation/reference#operation/getShopPaymentByReceiptId
-   * @return Etsy\Collection[Etsy\Resources\Payment]
-   */
-  public function getPayments() {
-    return $this->request(
-      "GET",
-      "/application/shops/{$this->shop_id}/receipts/{$this->receipt_id}/payments",
-      "Payment"
-    );
-  }
+    /**
+     * Gets all payments for the receipt.
+     *
+     * @link https://developers.etsy.com/documentation/reference#operation/getShopPaymentByReceiptId
+     *
+     * @return \Etsy\Collection[Payment]
+     */
+    public function getPayments()
+    {
+        return $this->request(
+            "GET",
+            "/application/shops/{$this->shop_id}/receipts/{$this->receipt_id}/payments",
+            "Payment"
+        );
+    }
 
-  /**
-   * Get all listings associated with the receipt.
-   *
-   * @link https://developers.etsy.com/documentation/reference#operation/getListingsByShopReceipt
-   * @param array $params
-   * @return Etsy\Collection[Etsy\Resources\Listing]
-   */
-  public function getListings($params = []) {
-    return $this->request(
-      "GET",
-      "/application/shops/{$this->shop_id}/receipts/{$this->receipt_id}/listings",
-      "Listing",
-      $params
-    );
-  }
+    /**
+     * Get all listings associated with the receipt.
+     *
+     * @link https://developers.etsy.com/documentation/reference#operation/getListingsByShopReceipt
+     *
+     * @param array $params
+     *
+     * @return \Etsy\Collection[Listing]
+     */
+    public function getListings($params = [])
+    {
+        return $this->request(
+            "GET",
+            "/application/shops/{$this->shop_id}/receipts/{$this->receipt_id}/listings",
+            "Listing",
+            $params
+        );
+    }
 
 }

@@ -2,8 +2,6 @@
 
 namespace Etsy;
 
-use Etsy\Etsy;
-
 /**
  * Base resource object.
  *
@@ -29,7 +27,7 @@ class Resource {
   /**
    * Constructor method for the Resource class.
    *
-   * @param array $properties
+   * @param \stdClass $properties
    * @return void
    */
   public function __construct($properties = false) {
@@ -172,7 +170,7 @@ class Resource {
    * @param string $url
    * @param string $resource
    * @param array $params
-   * @return Collection
+   * @return Collection|Resource
    */
   protected function request(
     string $method,
